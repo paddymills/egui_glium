@@ -13,6 +13,7 @@
 #![forbid(unsafe_code)]
 
 mod painter;
+use egui::ViewportIdPair;
 use glium::glutin::surface::WindowSurface;
 pub use painter::Painter;
 
@@ -67,21 +68,25 @@ impl EguiGlium {
         window: &winit::window::Window,
         run_ui: impl FnMut(&egui::Context),
     ) -> std::time::Duration {
-        let raw_input = self.egui_winit.take_egui_input(window);
+        let raw_input = self.egui_winit.take_egui_input(window, ViewportIdPair::from_self_and_parent(self.egui_ctx.viewport_id(), self.egui_ctx.parent_viewport_id()));
         let egui::FullOutput {
             platform_output,
-            repaint_after,
+            // repaint_after,
             textures_delta,
             shapes,
+            pixels_per_point,
+            viewport_output,
         } = self.egui_ctx.run(raw_input, run_ui);
 
         self.egui_winit
-            .handle_platform_output(window, &self.egui_ctx, platform_output);
+            .handle_platform_output(window, self.egui_ctx.viewport_id(), &self.egui_ctx, platform_output);
 
         self.shapes = shapes;
         self.textures_delta.append(textures_delta);
 
-        repaint_after
+        std::time::Duration::from_secs(0)
+        // TODO: re-impl this
+        // repaint_after
     }
 
     /// Paint the results of the last call to [`Self::run`].
@@ -92,7 +97,7 @@ impl EguiGlium {
     ) {
         let shapes = std::mem::take(&mut self.shapes);
         let textures_delta = std::mem::take(&mut self.textures_delta);
-        let clipped_primitives = self.egui_ctx.tessellate(shapes);
+        let clipped_primitives = self.egui_ctx.tessellate(shapes, self.egui_ctx.pixels_per_point());
         self.painter.paint_and_update_textures(
             display,
             target,
