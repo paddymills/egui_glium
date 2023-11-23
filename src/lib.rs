@@ -41,10 +41,10 @@ impl EguiGlium {
     ) -> Self {
         let painter = crate::Painter::new(display);
 
-        let mut egui_winit = egui_winit::State::new(event_loop);
-        egui_winit.set_max_texture_side(painter.max_texture_side());
         let pixels_per_point = window.scale_factor() as f32;
-        egui_winit.set_pixels_per_point(pixels_per_point);
+        let mut egui_winit = egui_winit::State::new(event_loop, Some(pixels_per_point), Some(painter.max_texture_side()));
+        // egui_winit.set_max_texture_side(painter.max_texture_side());
+        // egui_winit.set_pixels_per_point(pixels_per_point);
 
         Self {
             egui_ctx: Default::default(),
@@ -56,7 +56,7 @@ impl EguiGlium {
     }
 
     pub fn on_event(&mut self, event: &winit::event::WindowEvent) -> EventResponse {
-        self.egui_winit.on_event(&self.egui_ctx, event)
+        self.egui_winit.on_window_event(&self.egui_ctx, event)
     }
 
     /// Returns `true` if egui requests a repaint.
