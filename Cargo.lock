@@ -417,13 +417,6 @@ checksum = "9ea835d29036a4087793836fa931b08837ad5e957da9e23886b29586fb9b6650"
 [[package]]
 name = "ecolor"
 version = "0.23.0"
-dependencies = [
- "bytemuck",
-]
-
-[[package]]
-name = "ecolor"
-version = "0.23.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cfdf4e52dbbb615cfd30cf5a5265335c217b5fd8d669593cea74a517d9c605af"
 dependencies = [
@@ -431,13 +424,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "egui"
+name = "ecolor"
 version = "0.23.0"
+source = "git+https://github.com/paddymills/egui#c93defdcf87a10e7d1da0974e82f568532b4fb3b"
 dependencies = [
- "ahash",
- "epaint 0.23.0",
- "log",
- "nohash-hasher",
+ "bytemuck",
 ]
 
 [[package]]
@@ -454,11 +445,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "egui"
+version = "0.23.0"
+source = "git+https://github.com/paddymills/egui#c93defdcf87a10e7d1da0974e82f568532b4fb3b"
+dependencies = [
+ "ahash",
+ "epaint 0.23.0 (git+https://github.com/paddymills/egui)",
+ "log",
+ "nohash-hasher",
+]
+
+[[package]]
 name = "egui-winit"
 version = "0.23.0"
+source = "git+https://github.com/paddymills/egui#c93defdcf87a10e7d1da0974e82f568532b4fb3b"
 dependencies = [
  "arboard",
- "egui 0.23.0",
+ "egui 0.23.0 (git+https://github.com/paddymills/egui)",
  "log",
  "raw-window-handle 0.5.2",
  "smithay-clipboard",
@@ -500,7 +503,7 @@ dependencies = [
  "ahash",
  "bytemuck",
  "document-features",
- "egui 0.23.0",
+ "egui 0.23.0 (git+https://github.com/paddymills/egui)",
  "egui-winit",
  "egui_demo_lib",
  "glium",
@@ -520,17 +523,18 @@ dependencies = [
 [[package]]
 name = "emath"
 version = "0.23.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1ef2b29de53074e575c18b694167ccbe6e5191f7b25fe65175a0d905a32eeec0"
 dependencies = [
- "bytemuck",
+ "serde",
 ]
 
 [[package]]
 name = "emath"
 version = "0.23.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1ef2b29de53074e575c18b694167ccbe6e5191f7b25fe65175a0d905a32eeec0"
+source = "git+https://github.com/paddymills/egui#c93defdcf87a10e7d1da0974e82f568532b4fb3b"
 dependencies = [
- "serde",
+ "bytemuck",
 ]
 
 [[package]]
@@ -568,20 +572,6 @@ dependencies = [
 [[package]]
 name = "epaint"
 version = "0.23.0"
-dependencies = [
- "ab_glyph",
- "ahash",
- "bytemuck",
- "ecolor 0.23.0",
- "emath 0.23.0",
- "log",
- "nohash-hasher",
- "parking_lot",
-]
-
-[[package]]
-name = "epaint"
-version = "0.23.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "58067b840d009143934d91d8dcb8ded054d8301d7c11a517ace0a99bb1e1595e"
 dependencies = [
@@ -592,6 +582,21 @@ dependencies = [
  "nohash-hasher",
  "parking_lot",
  "serde",
+]
+
+[[package]]
+name = "epaint"
+version = "0.23.0"
+source = "git+https://github.com/paddymills/egui#c93defdcf87a10e7d1da0974e82f568532b4fb3b"
+dependencies = [
+ "ab_glyph",
+ "ahash",
+ "bytemuck",
+ "ecolor 0.23.0 (git+https://github.com/paddymills/egui)",
+ "emath 0.23.0 (git+https://github.com/paddymills/egui)",
+ "log",
+ "nohash-hasher",
+ "parking_lot",
 ]
 
 [[package]]
